@@ -71,11 +71,17 @@ namespace FinanceManager.App.ViewModels
 
         private void Add(TransactionType type)
         {
-            var vm = new EditTransactionViewModel(new Transaction
+            var transaction = new Transaction
             {
                 Type = type,
                 Date = DateTime.Today
-            });
+            };
+
+            // если поступление → сразу ставим категорию "Зарплата"
+            if (type == TransactionType.Income)
+                transaction.Category = TransactionCategory.Зарплата;
+
+            var vm = new EditTransactionViewModel(transaction);
 
             if (DialogService.ShowEditDialog(vm) == true)
             {
@@ -86,7 +92,6 @@ namespace FinanceManager.App.ViewModels
                 });
             }
         }
-
         private void Edit()
         {
             if (Selected == null) return;

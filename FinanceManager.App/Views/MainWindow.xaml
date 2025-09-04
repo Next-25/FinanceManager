@@ -40,7 +40,25 @@
                 <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}" Width="120"/>
                 <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="100"/>
                 <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="150"/>
-                <DataGridTextColumn Header="Сумма" Binding="{Binding Amount, StringFormat={}{0:C}, ConverterCulture=ru-RU}" Width="120"/>
+                <DataGridTemplateColumn Header="Сумма" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Amount, StringFormat={}{0:C}, ConverterCulture=ru-RU}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Type}" Value="Income">
+                                                <Setter Property="Foreground" Value="#FF1FB91F"/>
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                            </DataTrigger>                                            
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
