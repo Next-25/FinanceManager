@@ -30,7 +30,8 @@ namespace FinanceManager.App.ViewModels
 
         public decimal Balance => IncomeSum - ExpenseSum;
 
-        public RelayCommand AddCommand { get; }
+        public RelayCommand AddIncomeCommand { get; }
+        public RelayCommand AddExpenseCommand { get; }
         public RelayCommand EditCommand { get; }
         public RelayCommand DeleteCommand { get; }
         public RelayCommand ClearFilterCommand { get; }
@@ -40,7 +41,10 @@ namespace FinanceManager.App.ViewModels
         public MainViewModel(ITransactionService service)
         {
             _service = service;
-            AddCommand = new RelayCommand(Add);
+
+            AddIncomeCommand = new RelayCommand(() => Add(TransactionType.Income));
+            AddExpenseCommand = new RelayCommand(() => Add(TransactionType.Expense));
+
             EditCommand = new RelayCommand(Edit, () => Selected != null);
             DeleteCommand = new RelayCommand(Delete, () => Selected != null);
             ClearFilterCommand = new RelayCommand(() => { From = null; To = null; });
@@ -65,9 +69,14 @@ namespace FinanceManager.App.ViewModels
             DeleteCommand.RaiseCanExecuteChanged();
         }
 
-        private void Add()
+        private void Add(TransactionType type)
         {
-            var vm = new EditTransactionViewModel(new Transaction { Type = TransactionType.Expense, Date = DateTime.Today });
+            var vm = new EditTransactionViewModel(new Transaction
+            {
+                Type = type,
+                Date = DateTime.Today
+            });
+
             if (DialogService.ShowEditDialog(vm) == true)
             {
                 Task.Run(async () =>
