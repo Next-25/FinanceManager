@@ -4,7 +4,7 @@
         xmlns:vm="clr-namespace:FinanceManager.App.ViewModels"
         Title="Финансовый менеджер" Height="600" Width="900"
         WindowStartupLocation="CenterScreen"
-        Icon="/Images/Icon.png">
+        Icon="/Images/Icon.png" FontFamily="Yu Gothic UI" FontSize="13">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
