@@ -2,7 +2,7 @@ namespace FinanceManager.App.Models
 {
     public enum TransactionType
     {
-        Income = 0,
-        Expense = 1
+        Поступление = 0,
+        Расход = 1
     }
 }

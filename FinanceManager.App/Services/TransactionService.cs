@@ -46,7 +46,7 @@ namespace FinanceManager.App.Services
         public async Task<decimal> GetIncomeSumAsync(DateTime? from = null, DateTime? to = null)
         {
             await using var db = new AppDbContext();
-            var q = db.Transactions.Where(x => x.Type == TransactionType.Income);
+            var q = db.Transactions.Where(x => x.Type == TransactionType.Поступление);
             if (from.HasValue) q = q.Where(x => x.Date >= from.Value.Date);
             if (to.HasValue) q = q.Where(x => x.Date <= to.Value.Date);
             return await q.SumAsync(x => (decimal?)x.Amount) ?? 0m;
@@ -55,7 +55,7 @@ namespace FinanceManager.App.Services
         public async Task<decimal> GetExpenseSumAsync(DateTime? from = null, DateTime? to = null)
         {
             await using var db = new AppDbContext();
-            var q = db.Transactions.Where(x => x.Type == TransactionType.Expense);
+            var q = db.Transactions.Where(x => x.Type == TransactionType.Расход);
             if (from.HasValue) q = q.Where(x => x.Date >= from.Value.Date);
             if (to.HasValue) q = q.Where(x => x.Date <= to.Value.Date);
             return await q.SumAsync(x => (decimal?)x.Amount) ?? 0m;

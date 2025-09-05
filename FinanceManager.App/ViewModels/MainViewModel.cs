@@ -42,8 +42,8 @@ namespace FinanceManager.App.ViewModels
         {
             _service = service;
 
-            AddIncomeCommand = new RelayCommand(() => Add(TransactionType.Income));
-            AddExpenseCommand = new RelayCommand(() => Add(TransactionType.Expense));
+            AddIncomeCommand = new RelayCommand(() => Add(TransactionType.Поступление));
+            AddExpenseCommand = new RelayCommand(() => Add(TransactionType.Расход));
 
             EditCommand = new RelayCommand(Edit, () => Selected != null);
             DeleteCommand = new RelayCommand(Delete, () => Selected != null);
@@ -78,7 +78,7 @@ namespace FinanceManager.App.ViewModels
             };
 
             // если поступление → сразу ставим категорию "Зарплата"
-            if (type == TransactionType.Income)
+            if (type == TransactionType.Поступление)
                 transaction.Category = TransactionCategory.Зарплата;
 
             var vm = new EditTransactionViewModel(transaction);
